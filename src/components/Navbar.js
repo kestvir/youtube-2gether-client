@@ -10,10 +10,10 @@ const Navbar = () => {
             </div>
             <ul className="navbar-links">
                 <li>
-                    <Link to="/create-room">Create</Link>
+                    <Link className="nav-create-link" to="/create-room">Create</Link>
                 </li>
                 <li>
-                    <Link to="/join-room">Join</Link>
+                    <Link className="nav-join-link" to="/join-room">Join</Link>
                 </li>
             </ul>
         </div>

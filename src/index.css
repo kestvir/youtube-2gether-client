@@ -47,7 +47,7 @@ ul {
 }
 
 .navbar-links li {
-    margin: 0 10px;
+    margin-right: 0 5px;
     font-size: 1.5rem;
 }
 
@@ -137,6 +137,19 @@ ul {
 .home-container a, .navbar-links li a, .app-name a {
     text-decoration: none;
     color: #fff;
+}
+
+.navbar-links li a {
+    padding: 7px;
+    transition: all 0.3s ease;
+}
+
+.nav-create-link {
+    background-color: var(--side-color-1);
+}
+
+.nav-join-link {
+    background-color: var(--side-color-2);
 }
 
 /* Form styles */
