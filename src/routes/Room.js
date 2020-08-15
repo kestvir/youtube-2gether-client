@@ -33,7 +33,7 @@ const Room = (props) => {
             return props.history.push("/join-room/");
         }
 
-        socketRef.current = io.connect('/');
+        socketRef.current = io.connect('https://youtube-2gether.herokuapp.com');
 
         socketRef.current.emit("join room", props.match.params.roomID, state.username);
 
