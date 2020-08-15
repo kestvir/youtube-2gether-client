@@ -25,6 +25,9 @@ const Room = (props) => {
     const sendMsgBtn = useRef(null);
     const videoID = useRef("");
 
+    const ENDPOINT = 'https://youtube-2gether.herokuapp.com';
+
+
     useEffect(() => {
         const roomID = props.match.params.roomID;
 
@@ -33,7 +36,7 @@ const Room = (props) => {
             return props.history.push("/join-room/");
         }
 
-        socketRef.current = io.connect('https://youtube-2gether.herokuapp.com');
+        socketRef.current = io.connect(ENDPOINT);
 
         socketRef.current.emit("join room", props.match.params.roomID, state.username);
 
