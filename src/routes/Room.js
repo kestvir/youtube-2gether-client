@@ -197,25 +197,26 @@ const Room = (props) => {
 
     function onPlayerStateChange(e) {
         if (host.current.id !== yourUserObj.current.id) return
+        const playerState = window.YT.PlayerState;
 
         switch (e.data) {
-            case window.YT.PlayerState.UNSTARTED:
+            case playerState.UNSTARTED:
                 console.log('unstarted');
                 break;
-            case window.YT.PlayerState.ENDED:
+            case playerState.ENDED:
                 console.log('ended');
                 break;
-            case window.YT.PlayerState.PLAYING:
+            case playerState.PLAYING:
                 checkIfSeek()
                 socketRef.current.emit("player status", e.data)
                 break;
-            case window.YT.PlayerState.PAUSED:
+            case playerState.PAUSED:
                 socketRef.current.emit("player status", e.data)
                 break;
-            case window.YT.PlayerState.BUFFERING:
+            case playerState.BUFFERING:
                 console.log('buffering');
                 break;
-            case window.YT.PlayerState.CUED:
+            case playerState.CUED:
                 console.log('video cued');
                 break;
             default:
