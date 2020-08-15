@@ -47,7 +47,7 @@ ul {
 }
 
 .navbar-links li {
-    margin-right: 0 5px;
+    margin-right: 5px;
     font-size: 1.5rem;
 }
 
@@ -144,11 +144,11 @@ ul {
     transition: all 0.3s ease;
 }
 
-.nav-create-link {
+.nav-create-link:hover {
     background-color: var(--side-color-1);
 }
 
-.nav-join-link {
+.nav-join-link:hover {
     background-color: var(--side-color-2);
 }
 
