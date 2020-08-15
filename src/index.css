@@ -141,6 +141,7 @@ ul {
 
 .navbar-links li a {
     padding: 7px;
+    border-radius: 5px;
     transition: all 0.3s ease;
 }
 
