@@ -1,4 +1,4 @@
-The Youtube 2gether app lets users to chat and watch Youtube videos in real-time.
+The Youtube 2gether app lets users chat and watch Youtube videos in real-time.
 
 ## User Stories
 
