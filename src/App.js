@@ -7,23 +7,22 @@ import JoinRoom from "./routes/JoinRoom";
 import Room from "./routes/Room";
 import ChatContextProvider from "./context/ChatContext";
 
-
 function App() {
-    return (
-        <div className="App">
-            <ChatContextProvider>
-                <BrowserRouter>
-                    <Navbar />
-                    <Switch>
-                        <Route path="/" exact component={Home} />
-                        <Route path="/create-room" component={CreateRoom} />
-                        <Route path="/join-room/" component={JoinRoom} />
-                        <Route path="/room/:roomID" component={Room} />
-                    </Switch>
-                </BrowserRouter>
-            </ChatContextProvider>
-        </div>
-    );
+  return (
+    <div className="App">
+      <ChatContextProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/create-room" component={CreateRoom} />
+            <Route path="/join-room/" component={JoinRoom} />
+            <Route path="/room/:roomID" component={Room} />
+          </Switch>
+        </BrowserRouter>
+      </ChatContextProvider>
+    </div>
+  );
 }
 
 export default App;
