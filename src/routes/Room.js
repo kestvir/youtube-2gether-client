@@ -17,6 +17,7 @@ const Room = (props) => {
   const youtubePlayer = useRef(null);
   const previousTime = useRef(0);
   const currentPlaybackRate = useRef(1);
+  // used to sync user with host on component mount
   const notHost = useRef(false);
   const loadVideoContainer = useRef(null);
   const hostControlBtn = useRef(null);
@@ -114,8 +115,8 @@ const Room = (props) => {
       const firstScriptTag = document.getElementsByTagName("script")[0];
       //youtube iframe
       const secondScriptTag = document.getElementsByTagName("script")[1];
-      firstScriptTag.remove();
-      secondScriptTag.remove();
+      if (firstScriptTag) firstScriptTag.remove();
+      if (secondScriptTag) secondScriptTag.remove();
       socketRef.current.close();
     };
   }, []);
@@ -175,10 +176,10 @@ const Room = (props) => {
   function onPlayerReady(e) {
     console.log("player ready");
     currentPlaybackRate.current = youtubePlayer.current.getPlaybackRate();
-    const currentVideoTime = getCurrentVideoTime();
-    const currentPlayerState = getCurrentPlayerState();
-    if (host.current) {
+    if (host.current && host.current.id === yourUserObj.current.id) {
       setInterval(() => {
+        const currentVideoTime = getCurrentVideoTime();
+        const currentPlayerState = getCurrentPlayerState();
         socketRef.current.emit(
           "host time",
           currentVideoTime,
