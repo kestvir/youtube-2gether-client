@@ -247,6 +247,7 @@ const Room = (props) => {
 
   function initLoadVideo() {
     if (!videoLink) return;
+    dispatch({ type: "SET_VIDEOLINK", chat: { videoLink } });
     socketRef.current.emit("load video", videoLink);
   }
 
