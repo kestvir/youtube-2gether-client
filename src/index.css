@@ -16,8 +16,8 @@ body {
     font-family: var(--main-ff);
 }
 
-h1 {
-    margin: 0 0 0.5rem;
+h1, h2 {
+    margin: 0;
 }
 
 ul {
@@ -107,7 +107,12 @@ ul {
     border: 1px solid lightgray;
     border-radius: 10px;
     padding-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 5px;
+}
+
+.user-list-container {
+    display: flex;
+    align-items: flex-end;
 }
 
 .my-row, .partner-row {
@@ -295,4 +300,9 @@ ul {
 
 .sb-avatar:not(:last-child) {
     margin-right: 7px;
+}
+
+.user-list-container h2 {
+    color: #fff;
+    margin-right: 10px;
 }

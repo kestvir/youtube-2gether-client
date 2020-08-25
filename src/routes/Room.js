@@ -27,6 +27,7 @@ const Room = (props) => {
   const videoID = useRef("");
 
   const ENDPOINT = "https://youtube-2gether.herokuapp.com";
+  //   const ENDPOINT = "http://localhost:8000";
 
   useEffect(() => {
     const roomID = props.match.params.roomID;
