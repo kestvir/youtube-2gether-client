@@ -11,6 +11,12 @@
 
 /* Base styles */
 
+*, ::after, ::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: var(--main-ff);
@@ -55,7 +61,19 @@ ul {
     margin-right: 0;
 }
 
+@media screen and (max-width: 551px) {
+    .app-name, .navbar-links li {
+        font-size: 1.25rem;
+    }
+}
+
 /* Page layout styles */
+
+.home-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+}
 
 .create-side, .join-side {
     display: flex;
@@ -84,17 +102,27 @@ ul {
     flex-direction: column;
 }
 
-.video-player-container {
-    margin-right: 2rem;
-}
-
 .main-container {
     display: flex;
     justify-content: center;
     padding: 2rem;
     height: 100vh;
-    grid-template-columns: repeat(12, 1fr);
     background-color: var(--chat-bg-color);
+}
+
+.video-player-container {
+    margin-right: 2rem;
+    flex: 1;
+    min-width: 0;
+}
+
+#player {
+    width: 100%;
+}
+
+.chat-container {
+    flex: 1;
+    min-width: 0;
 }
 
 .chat-messages-container {
@@ -103,7 +131,6 @@ ul {
     height: 550px;
     max-height: 550px;
     overflow: auto;
-    width: 700px;
     border: 1px solid lightgray;
     border-radius: 10px;
     padding-bottom: 10px;
@@ -129,12 +156,18 @@ ul {
     justify-content: flex-start;
 }
 
-/* Home styles */
-
-.home-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 100vh;
+@media screen and (max-width: 991px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+    }
+    .video-player-container {
+        margin-bottom: 20px;
+    }
+    .chat-messages-container {
+        height: 350;
+        max-height: 350px;
+    }
 }
 
 /* Links */
@@ -178,19 +211,31 @@ ul {
 }
 
 #create-username-input, #join-username-input {
-    margin: 1rem 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-.chat-form {
-    width: 700px;
+@media screen and (max-width: 595px) {
+    .create-form input, .join-form input {
+        width: 60%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 357px) {
+    .create-form input, .join-form input {
+        width: 50%;
+    }
 }
 
 /* Button styles */
 
 .btn {
+    width: 220px;
     border-radius: 5px;
     font-size: 1.25rem;
     padding: 2rem 3rem;
+    text-align: center;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     transition: all 0.5s ease;
@@ -260,7 +305,7 @@ ul {
 }
 
 .chat-textarea {
-    width: 98%;
+    width: 100%;
     height: 100px;
     border-radius: 10px;
     margin-top: 10px;
