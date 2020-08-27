@@ -10,4 +10,4 @@ The server-side for this app can be found here: https://github.com/kestvir/youtu
 
 ## Further Improvements
 
-- [ ] Users can load videos with a specified timestamps and videos from playlists.
+- [ ] Users can load videos with specified timestamps and videos from playlists.
