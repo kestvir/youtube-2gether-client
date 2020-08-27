@@ -8,6 +8,7 @@ The Youtube 2gether app lets users chat and watch Youtube videos in real-time.
 
 The server-side for this app can be found here: https://github.com/kestvir/youtube-2gether-server.
 
-## Further Improvements
+## Further improvements
 
 - [ ] Users can load videos with specified timestamps and videos from playlists.
+- [ ] Users can see a loader if the video player from Youtube API is not loaded yet.
