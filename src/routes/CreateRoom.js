@@ -1,21 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
-// import io from "socket.io-client";
+import React, { useState, useContext } from "react";
 import { v1 as uuid } from "uuid";
 import { ChatContext } from "../context/ChatContext";
 
 const CreateRoom = (props) => {
-  const { state, dispatch } = useContext(ChatContext);
+  const { dispatch } = useContext(ChatContext);
 
   const [username, setUsername] = useState("");
   const [videoLink, setVideoLink] = useState("");
-
-  //   useEffect(() => {
-  //     const username = state.username;
-
-  //     if (username) {
-  //       dispatch({ type: "SET_USERNAME", chat: { username: "" } });
-  //     }
-  //   }, []);
 
   function create(e) {
     e.preventDefault();

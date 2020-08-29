@@ -12,6 +12,7 @@ const Room = (props) => {
   const [videoLink, setVideoLink] = useState("");
   const [hostUsername, setHostUsername] = useState("");
   const [room, setRoom] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const socketRef = useRef(null);
   const youtubePlayer = useRef(null);
@@ -26,7 +27,7 @@ const Room = (props) => {
   const sendMsgBtn = useRef(null);
   const videoID = useRef("");
 
-  const ENDPOINT = "https://youtube-2gether.herokuapp.com";
+  const ENDPOINT = "https://youtube-2gether-backend.herokuapp.com/";
   //   const ENDPOINT = "http://localhost:8000";
 
   useEffect(() => {
@@ -45,27 +46,30 @@ const Room = (props) => {
       state.username
     );
 
+    socketRef.current.on("your user obj", (userObj) => {
+      yourUserObj.current = userObj;
+    });
+
     socketRef.current.on("room", (socketRoom) => {
       setRoom(socketRoom);
     });
 
     socketRef.current.on("host", (hostObj) => {
+      setLoading(true);
       host.current = hostObj;
-      videoID.current = state.videoLink.split("=")[1];
+      videoID.current = extractVideoID();
       createVideoPlayer();
       setHostUsername(host.current.username);
-      loadVideoContainer.current.style.display = "flex";
-      hostControlBtn.current.style.display = "none";
     });
 
     socketRef.current.on("not host", (hostObj) => {
       if (host.current) {
-        socketRef.current.emit("current video id", videoID.current);
-        return;
+        return socketRef.current.emit("current video id", videoID.current);
       }
       host.current = hostObj;
       setHostUsername(host.current.username);
       notHost.current = true;
+      hostControlBtn.current.style.display = "block";
     });
 
     socketRef.current.on("host video id", (hostVideoID) => {
@@ -73,16 +77,12 @@ const Room = (props) => {
       createVideoPlayer();
     });
 
-    socketRef.current.on("your user obj", (userObj) => {
-      yourUserObj.current = userObj;
-    });
-
     socketRef.current.on("message", (messageObj) => {
       receivedMessage(messageObj);
     });
 
     socketRef.current.on("load", (videoLinkData) => {
-      videoID.current = videoLinkData.split("=")[1];
+      videoID.current = extractVideoID();
       loadYTVideo();
     });
 
@@ -170,13 +170,25 @@ const Room = (props) => {
     return youtubePlayer.current.getPlayerState();
   }
 
+  function extractVideoID() {
+    const videoIDStr = state.videoLink.split("v=")[1];
+    return videoIDStr.substring(0, 11);
+  }
+
   function resetNotHostVal() {
     if (notHost.current) notHost.current = false;
   }
 
   function onPlayerReady(e) {
     console.log("player ready");
+    setLoading(false);
+
+    if (host.current.id === yourUserObj.current.id) {
+      displayLoadVideoInput();
+    }
+
     currentPlaybackRate.current = youtubePlayer.current.getPlaybackRate();
+
     if (host.current && host.current.id === yourUserObj.current.id) {
       setInterval(() => {
         const currentVideoTime = getCurrentVideoTime();
@@ -323,6 +335,7 @@ const Room = (props) => {
   return (
     <div className="main-container">
       <VideoPlayer
+        loading={loading}
         setVideoLink={setVideoLink}
         forwardedRefHostControlBtn={hostControlBtn}
         forwardedRefLoadContainer={loadVideoContainer}

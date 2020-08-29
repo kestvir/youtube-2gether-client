@@ -170,6 +170,12 @@ ul {
     }
 }
 
+@media screen and (max-width: 492px) {
+    .home-container {
+        grid-template-columns: none;
+    }
+}
+
 /* Links */
 
 .home-container a, .navbar-links li a, .app-name a {
@@ -261,7 +267,7 @@ ul {
 }
 
 .make-host-btn {
-    display: block;
+    display: none;
     margin: 10px auto 0;
 }
 
@@ -271,6 +277,19 @@ ul {
 
 .join-side .btn, .join-form .btn {
     background-color: var(--side-color-2)
+}
+
+.chat-btn {
+    background-color: var(--grey-color);
+    color: #fff!important;
+    font-family: var(--main-ff);
+    font-weight: 700;
+    width: 100%;
+    border: none;
+    height: 2.5rem;
+    border-radius: 5px;
+    color: #46516e;
+    font-size: 1rem;
 }
 
 /* Messages styles */
@@ -322,19 +341,6 @@ ul {
 
 .chat-textarea::placeholder {
     color: var(--grey-color)
-}
-
-.chat-btn {
-    background-color: var(--grey-color);
-    color: #fff!important;
-    font-family: var(--main-ff);
-    font-weight: 700;
-    width: 100%;
-    border: none;
-    height: 2.5rem;
-    border-radius: 5px;
-    color: #46516e;
-    font-size: 1rem;
 }
 
 .host-name {
