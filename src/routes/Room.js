@@ -31,6 +31,8 @@ const Room = (props) => {
   //   const ENDPOINT = "http://localhost:8000";
 
   useEffect(() => {
+    setLoading(true);
+
     const roomID = props.match.params.roomID;
 
     if (!state.username) {
@@ -47,6 +49,7 @@ const Room = (props) => {
     );
 
     socketRef.current.on("your user obj", (userObj) => {
+      setLoading(false);
       yourUserObj.current = userObj;
     });
 
@@ -55,7 +58,6 @@ const Room = (props) => {
     });
 
     socketRef.current.on("host", (hostObj) => {
-      setLoading(true);
       host.current = hostObj;
       videoID.current = extractVideoID();
       createVideoPlayer();
