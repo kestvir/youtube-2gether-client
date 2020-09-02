@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import { ChatContext } from "../context/ChatContext";
 import VideoPlayer from "../components/VideoPlayer";
 import Chat from "../components/Chat";
+import { setVideoLinkAction, setRoomIDAction } from "../actions/actions";
 
 const Room = (props) => {
   const { state, dispatch } = useContext(ChatContext);
@@ -36,7 +37,7 @@ const Room = (props) => {
     const roomID = props.match.params.roomID;
 
     if (!state.username) {
-      dispatch({ type: "SET_ROOM_ID", chat: { roomID } });
+      dispatch(setRoomIDAction(roomID));
       return props.history.push("/join-room/");
     }
 
@@ -263,7 +264,7 @@ const Room = (props) => {
 
   function initLoadVideo() {
     if (!videoLink) return;
-    dispatch({ type: "SET_VIDEOLINK", chat: { videoLink } });
+    dispatch(setVideoLinkAction(videoLink));
     socketRef.current.emit("load video", videoLink);
   }
 

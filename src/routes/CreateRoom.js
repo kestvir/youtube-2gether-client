@@ -1,6 +1,11 @@
 import React, { useState, useContext } from "react";
 import { v1 as uuid } from "uuid";
 import { ChatContext } from "../context/ChatContext";
+import {
+  setUsernameAction,
+  setVideoLinkAction,
+  setRoomIDAction,
+} from "../actions/actions";
 
 const CreateRoom = (props) => {
   const { dispatch } = useContext(ChatContext);
@@ -15,12 +20,12 @@ const CreateRoom = (props) => {
       return alert("Fill in the input fields!");
     }
 
-    dispatch({ type: "SET_USERNAME", chat: { username } });
-    dispatch({ type: "SET_VIDEOLINK", chat: { videoLink } });
+    dispatch(setUsernameAction(username));
+    dispatch(setVideoLinkAction(videoLink));
 
     const roomID = uuid();
 
-    dispatch({ type: "SET_ROOM_ID", chat: { roomID } });
+    dispatch(setRoomIDAction(roomID));
 
     props.history.push(`/room/${roomID}`);
   }

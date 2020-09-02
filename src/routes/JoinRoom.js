@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ChatContext } from "../context/ChatContext";
+import { setUsernameAction } from "../actions/actions";
 
 const JoinRoom = (props) => {
   const { state, dispatch } = useContext(ChatContext);
@@ -18,7 +19,7 @@ const JoinRoom = (props) => {
       return alert("Fill in the input fields!");
     }
 
-    dispatch({ type: "SET_USERNAME", chat: { username } });
+    dispatch(setUsernameAction(username));
 
     props.history.push(`/room/${roomID}`);
   }
