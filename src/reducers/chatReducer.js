@@ -3,17 +3,17 @@ export const chatReducer = (state, action) => {
     case "SET_USERNAME":
       return {
         ...state,
-        username: action.username,
+        username: action.payload,
       };
     case "SET_VIDEO_LINK":
       return {
         ...state,
-        videoLink: action.videoLink,
+        videoLink: action.payload,
       };
     case "SET_ROOM_ID":
       return {
         ...state,
-        roomID: action.roomID,
+        roomID: action.payload,
       };
     default:
       return state;
