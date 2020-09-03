@@ -1,5 +1,6 @@
 import React from "react";
 import UserList from "./UserList";
+import Avatar from "react-avatar";
 
 const Chat = ({
   room,
@@ -19,8 +20,15 @@ const Chat = ({
             return (
               <div className="my-row" key={index}>
                 <div className="my-message">
-                  <span className="message-author">{message.author}:</span>
                   <span className="message-body">{message.body}</span>
+                </div>
+                <div className="avatar-container">
+                  <Avatar
+                    size="40"
+                    round={true}
+                    key={message.id}
+                    name={message.author}
+                  />
                 </div>
               </div>
             );
@@ -28,8 +36,15 @@ const Chat = ({
           return (
             <div className="partner-row" key={index}>
               <div className="partner-message">
-                <span className="message-author">{message.author}:</span>
                 <span className="message-body">{message.body}</span>
+              </div>
+              <div className="avatar-container">
+                <Avatar
+                  size="40"
+                  round={true}
+                  key={message.id}
+                  name={message.author}
+                />
               </div>
             </div>
           );

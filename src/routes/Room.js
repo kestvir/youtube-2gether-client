@@ -60,7 +60,11 @@ const Room = (props) => {
 
     socketRef.current.on("host", (hostObj) => {
       host.current = hostObj;
-      videoID.current = extractVideoID();
+      if (state.videoLink) {
+        videoID.current = extractVideoID(state.videoLink);
+      } else {
+        videoID.current = extractVideoID(getLastViewedVideoLink());
+      }
       createVideoPlayer();
       setHostUsername(host.current.username);
     });
@@ -85,7 +89,8 @@ const Room = (props) => {
     });
 
     socketRef.current.on("load", (videoLinkData) => {
-      videoID.current = extractVideoID();
+      saveLastViewedVideo(videoLinkData);
+      videoID.current = extractVideoID(videoLinkData);
       loadYTVideo();
     });
 
@@ -130,6 +135,14 @@ const Room = (props) => {
     randomChangeHost();
   }, [room]);
 
+  function saveLastViewedVideo(videoLink = state.videoLink) {
+    localStorage.setItem("lastViewedVideo", videoLink);
+  }
+
+  function getLastViewedVideoLink() {
+    return localStorage.getItem("lastViewedVideo");
+  }
+
   function createVideoPlayer() {
     if (!window.onYouTubeIframeAPIReady) {
       const tag = document.createElement("script");
@@ -173,8 +186,8 @@ const Room = (props) => {
     return youtubePlayer.current.getPlayerState();
   }
 
-  function extractVideoID() {
-    const videoIDStr = state.videoLink.split("v=")[1];
+  function extractVideoID(videoLinkData) {
+    const videoIDStr = videoLinkData.split("v=")[1];
     return videoIDStr.substring(0, 11);
   }
 
