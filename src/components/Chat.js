@@ -35,9 +35,6 @@ const Chat = ({
           }
           return (
             <div className="partner-row" key={index}>
-              <div className="partner-message">
-                <span className="message-body">{message.body}</span>
-              </div>
               <div className="avatar-container">
                 <Avatar
                   size="40"
@@ -45,6 +42,9 @@ const Chat = ({
                   key={message.id}
                   name={message.author}
                 />
+              </div>
+              <div className="partner-message">
+                <span className="message-body">{message.body}</span>
               </div>
             </div>
           );
