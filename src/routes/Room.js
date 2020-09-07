@@ -3,6 +3,9 @@ import io from "socket.io-client";
 import { ChatContext } from "../context/ChatContext";
 import VideoPlayer from "../components/VideoPlayer";
 import Chat from "../components/Chat";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
+
 import { setVideoLinkAction, setRoomIDAction } from "../actions/actions";
 
 const Room = (props) => {
@@ -350,26 +353,31 @@ const Room = (props) => {
 
   return (
     <div className="main-container">
-      <VideoPlayer
-        loading={loading}
-        setVideoLink={setVideoLink}
-        forwardedRefHostControlBtn={hostControlBtn}
-        forwardedRefLoadContainer={loadVideoContainer}
-        initLoadVideo={initLoadVideo}
-        videoLink={videoLink}
-        changeHost={changeHost}
-        hostUsername={hostUsername}
-      />
+      {!loading ? (
+        <>
+          <VideoPlayer
+            setVideoLink={setVideoLink}
+            forwardedRefHostControlBtn={hostControlBtn}
+            forwardedRefLoadContainer={loadVideoContainer}
+            initLoadVideo={initLoadVideo}
+            videoLink={videoLink}
+            changeHost={changeHost}
+            hostUsername={hostUsername}
+          />
 
-      <Chat
-        room={room}
-        messages={messages}
-        message={message}
-        sendMessage={sendMessage}
-        handleMessageChange={handleMessageChange}
-        forwardedRefSendMsgBtn={sendMsgBtn}
-        yourUserObj={yourUserObj}
-      />
+          <Chat
+            room={room}
+            messages={messages}
+            message={message}
+            sendMessage={sendMessage}
+            handleMessageChange={handleMessageChange}
+            forwardedRefSendMsgBtn={sendMsgBtn}
+            yourUserObj={yourUserObj}
+          />
+        </>
+      ) : (
+        <Loader type="ThreeDots" color="#fff" height={100} width={100} />
+      )}
     </div>
   );
 };
