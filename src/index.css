@@ -43,7 +43,7 @@ ul {
 }
 
 .app-name {
-    font-size: 1.55rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #fff;
 }
@@ -61,18 +61,12 @@ ul {
     margin-right: 0;
 }
 
-@media screen and (max-width: 551px) {
-    .app-name, .navbar-links li {
-        font-size: 1.25rem;
-    }
-}
-
 /* Page layout styles */
 
 .home-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100vh;
+    height: calc(100vh - 68px);
 }
 
 .create-side, .join-side {
@@ -165,26 +159,6 @@ ul {
     margin-left: 7px;
 }
 
-@media screen and (max-width: 991px) {
-    .main-container {
-        flex-direction: column;
-        height: auto;
-    }
-    .video-player-container {
-        margin-bottom: 20px;
-    }
-    .chat-messages-container {
-        height: 350;
-        max-height: 350px;
-    }
-}
-
-@media screen and (max-width: 492px) {
-    .home-container {
-        grid-template-columns: none;
-    }
-}
-
 /* Links */
 
 .home-container a, .navbar-links li a, .app-name a {
@@ -228,19 +202,6 @@ ul {
 #create-username-input, #join-username-input {
     margin-top: 1rem;
     margin-bottom: 1rem;
-}
-
-@media screen and (max-width: 595px) {
-    .create-form input, .join-form input {
-        width: 60%;
-        margin: 0 auto;
-    }
-}
-
-@media screen and (max-width: 357px) {
-    .create-form input, .join-form input {
-        width: 50%;
-    }
 }
 
 /* Button styles */
@@ -288,6 +249,10 @@ ul {
     background-color: var(--side-color-2)
 }
 
+#load-video-container .btn {
+    margin-top: 1rem;
+}
+
 .chat-btn {
     background-color: var(--grey-color);
     color: #fff!important;
@@ -330,7 +295,7 @@ ul {
 
 .chat-textarea {
     width: 100%;
-    height: 100px;
+    height: 75px;
     border-radius: 10px;
     margin-top: 10px;
     padding-left: 10px;
@@ -361,4 +326,81 @@ ul {
 .user-list-container h2 {
     color: #fff;
     margin-right: 10px;
+}
+
+/*** Media Queries ***/
+
+@media screen and (max-width: 992px) {
+    .main-container {
+        flex-direction: column;
+        justify-content: normal;
+        padding: 1rem;
+        height: calc(100vh - 68px);
+    }
+    .video-player-container {
+        height: 50%;
+        margin: 0 0 10px;
+    }
+    .chat-container {
+        height: 50%;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    h2 {
+        font-size: 1.25rem;
+    }
+    #player {
+        height: 65%;
+    }
+    .chat-messages-container {
+        max-height: 60%;
+    }
+    .chat-textarea {
+        height: 50px;
+    }
+    #load-video-container .btn {
+        padding: .9rem 1.2rem !important;
+        width: 10rem !important;
+        margin-top: 0.5rem;
+        font-size: 1rem;
+    }
+    #load-video-container input {
+        padding: 6px;
+    }
+}
+
+@media screen and (max-width: 595px) {
+    .create-form input, .join-form input {
+        width: 70%;
+        margin: 0 auto;
+    }
+    .create-form .btn, .join-form .btn, #load-video-container .btn {
+        padding: .9rem 1.2rem !important;
+        width: 10rem !important;
+    }
+}
+
+@media screen and (max-width: 492px) {
+    .home-container {
+        grid-template-columns: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .app-name a {
+        font-size: 1.25rem;
+    }
+    .navbar-links li {
+        font-size: 1.15rem;
+    }
+    .navbar {
+        padding: 1rem 0.75rem;
+    }
+}
+
+@media screen and (max-width: 357px) {
+    .create-form input, .join-form input {
+        width: 50%;
+    }
 }

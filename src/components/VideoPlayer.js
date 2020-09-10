@@ -27,11 +27,7 @@ const VideoPlayer = ({
           value={videoLink}
           onChange={(e) => setVideoLink(e.target.value)}
         />
-        <button
-          style={{ marginTop: "1rem" }}
-          className="btn"
-          onClick={initLoadVideo}
-        >
+        <button className="btn" onClick={initLoadVideo}>
           Load video
         </button>
       </div>
