@@ -14,10 +14,30 @@ function JoinRoom(props) {
     }
   }, []);
 
+  function checkIfRoomExists(roomID) {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}join-room`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ roomID }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
   function joinRoom() {
     if (!roomID.trim() || !username.trim()) {
       return alert("Fill in the input fields!");
     }
+    const roomExists = checkIfRoomExists(roomID);
+
+    // if (!roomExists) return alert("Room does not exist!");
 
     dispatch(setUsernameAction(username));
 
@@ -26,7 +46,7 @@ function JoinRoom(props) {
 
   return (
     <div className="join-container">
-      <form className="join-form">
+      <form className="join-form" onSubmit={joinRoom}>
         <input
           type="text"
           required
@@ -42,7 +62,7 @@ function JoinRoom(props) {
           value={username}
           onChange={(e) => setUsername(e.target.value.trim())}
         />
-        <button className="btn" type="submit" onClick={joinRoom}>
+        <button className="btn" type="submit">
           Join Room
         </button>
       </form>

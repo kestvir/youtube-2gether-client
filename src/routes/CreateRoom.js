@@ -14,7 +14,7 @@ function CreateRoom(props) {
   const [username, setUsername] = useState("");
   const [videoLink, setVideoLink] = useState("");
 
-  function create(e) {
+  function createRoom(e) {
     e.preventDefault();
 
     if (!videoLink.trim() || !username.trim())
@@ -37,7 +37,7 @@ function CreateRoom(props) {
 
   return (
     <div className="create-container">
-      <form className="create-form">
+      <form className="create-form" onClick={createRoom}>
         <input
           type="text"
           required
@@ -53,7 +53,7 @@ function CreateRoom(props) {
           value={username}
           onChange={(e) => setUsername(e.target.value.trim())}
         />
-        <button className="btn" type="submit" onClick={create}>
+        <button className="btn" type="submit">
           Create Room
         </button>
       </form>
