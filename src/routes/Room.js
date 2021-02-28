@@ -23,12 +23,14 @@ function Room(props) {
   const youtubePlayer = useRef(null);
   const previousTime = useRef(0);
   const currentPlaybackRate = useRef(1);
+
   // used to sync user with host on component mount
   const notHost = useRef(false);
+
   const loadVideoContainer = useRef(null);
   const hostControlBtn = useRef(null);
   const host = useRef(null);
-  const yourUserObj = useRef(null);
+  const selfUserObj = useRef(null);
   const sendMsgBtn = useRef(null);
   const videoID = useRef("");
 
@@ -53,9 +55,9 @@ function Room(props) {
       state.username
     );
 
-    socketRef.current.on("your user obj", (userObj) => {
+    socketRef.current.on("self user obj", (userObj) => {
       setLoading(false);
-      yourUserObj.current = userObj;
+      selfUserObj.current = userObj;
     });
 
     socketRef.current.on("room", (socketRoom) => {
@@ -113,7 +115,7 @@ function Room(props) {
     socketRef.current.on("new host", (newHostObj) => {
       host.current = newHostObj;
       setHostUsername(newHostObj.username);
-      if (yourUserObj.current.id !== host.current.id) {
+      if (selfUserObj.current.id !== host.current.id) {
         loadVideoContainer.current.style.display = "none";
         hostControlBtn.current.style.display = "block";
       }
@@ -174,7 +176,7 @@ function Room(props) {
   }
 
   function onPlayerPlaybackRateChange(e) {
-    if (host.current.id !== yourUserObj.current.id) return;
+    if (host.current.id !== selfUserObj.current.id) return;
 
     const newPlaybackRate = e.data;
     if (newPlaybackRate === currentPlaybackRate.current) return;
@@ -203,13 +205,13 @@ function Room(props) {
     console.log("player ready");
     setLoading(false);
 
-    if (host.current.id === yourUserObj.current.id) {
+    if (host.current.id === selfUserObj.current.id) {
       displayLoadVideoInput();
     }
 
     currentPlaybackRate.current = youtubePlayer.current.getPlaybackRate();
 
-    if (host.current && host.current.id === yourUserObj.current.id) {
+    if (host.current && host.current.id === selfUserObj.current.id) {
       setInterval(() => {
         const currentVideoTime = getCurrentVideoTime();
         const currentPlayerState = getCurrentPlayerState();
@@ -238,7 +240,7 @@ function Room(props) {
   }
 
   function onPlayerStateChange(e) {
-    if (host.current.id !== yourUserObj.current.id) return;
+    if (host.current.id !== selfUserObj.current.id) return;
     const playerState = window.YT.PlayerState;
 
     switch (e.data) {
@@ -314,8 +316,8 @@ function Room(props) {
 
     const messageObject = {
       body: message,
-      id: yourUserObj.current.id,
-      author: yourUserObj.current.username,
+      id: selfUserObj.current.id,
+      author: selfUserObj.current.username,
     };
     setMessage("");
     socketRef.current.emit("send message", messageObject);
@@ -351,7 +353,7 @@ function Room(props) {
 
   function changeHost() {
     const newHostObj = room.find(
-      (userObj) => userObj.id === yourUserObj.current.id
+      (userObj) => userObj.id === selfUserObj.current.id
     );
     socketRef.current.emit("host change", newHostObj);
     displayLoadVideoInput();
@@ -378,7 +380,7 @@ function Room(props) {
             sendMessage={sendMessage}
             handleMessageChange={handleMessageChange}
             forwardedRefSendMsgBtn={sendMsgBtn}
-            yourUserObj={yourUserObj}
+            selfUserObj={selfUserObj}
           />
         </>
       ) : (

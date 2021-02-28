@@ -9,14 +9,14 @@ function Chat({
   sendMessage,
   handleMessageChange,
   forwardedRefSendMsgBtn,
-  yourUserObj,
+  selfUserObj,
 }) {
   return (
     <div className="chat-container">
       <UserList room={room} />
       <div className="chat-messages-container">
         {messages.map((message, index) => {
-          if (message.id === yourUserObj.current.id) {
+          if (message.id === selfUserObj.current.id) {
             return (
               <div className="my-row" key={index}>
                 <div className="my-message">
