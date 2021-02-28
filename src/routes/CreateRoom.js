@@ -37,7 +37,7 @@ function CreateRoom(props) {
 
   return (
     <div className="create-container">
-      <form className="create-form" onClick={createRoom}>
+      <form className="create-form" onSubmit={createRoom}>
         <input
           type="text"
           required
