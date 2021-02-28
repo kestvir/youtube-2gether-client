@@ -25,20 +25,22 @@ function JoinRoom(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
+        return data.isRoom;
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }
 
-  function joinRoom() {
+  function joinRoom(e) {
+    e.preventDefault();
+
     if (!roomID.trim() || !username.trim()) {
       return alert("Fill in the input fields!");
     }
     const roomExists = checkIfRoomExists(roomID);
 
-    // if (!roomExists) return alert("Room does not exist!");
+    if (!roomExists) return alert("Room does not exist!");
 
     dispatch(setUsernameAction(username));
 

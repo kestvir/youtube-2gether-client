@@ -130,6 +130,7 @@ function Room(props) {
       const secondScriptTag = document.getElementsByTagName("script")[1];
       if (firstScriptTag) firstScriptTag.remove();
       if (secondScriptTag) secondScriptTag.remove();
+      dispatch(setRoomIDAction(""));
       socketRef.current.close();
     };
   }, []);
