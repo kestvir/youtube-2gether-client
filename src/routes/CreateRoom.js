@@ -6,8 +6,9 @@ import {
   setVideoLinkAction,
   setRoomIDAction,
 } from "../actions/actions";
+import { checkIfYoutubeVideoLink } from "../shared/functions";
 
-const CreateRoom = (props) => {
+function CreateRoom(props) {
   const { dispatch } = useContext(ChatContext);
 
   const [username, setUsername] = useState("");
@@ -16,9 +17,13 @@ const CreateRoom = (props) => {
   function create(e) {
     e.preventDefault();
 
-    if (!videoLink.trim() || !username.trim()) {
+    if (!videoLink.trim() || !username.trim())
       return alert("Fill in the input fields!");
-    }
+
+    const isYoutubeVideoLink = checkIfYoutubeVideoLink(videoLink);
+
+    if (!isYoutubeVideoLink)
+      return alert("Please eneter a valid Youtube video link.");
 
     dispatch(setUsernameAction(username));
     dispatch(setVideoLinkAction(videoLink));
@@ -54,6 +59,6 @@ const CreateRoom = (props) => {
       </form>
     </div>
   );
-};
+}
 
 export default CreateRoom;

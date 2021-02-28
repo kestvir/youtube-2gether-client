@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { ChatContext } from "../context/ChatContext";
 import { setUsernameAction } from "../actions/actions";
 
-const JoinRoom = (props) => {
+function JoinRoom(props) {
   const { state, dispatch } = useContext(ChatContext);
 
   const [username, setUsername] = useState("");
@@ -48,6 +48,6 @@ const JoinRoom = (props) => {
       </form>
     </div>
   );
-};
+}
 
 export default JoinRoom;

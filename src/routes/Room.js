@@ -6,9 +6,10 @@ import Chat from "../components/Chat";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
+import { checkIfYoutubeVideoLink } from "../shared/functions";
 import { setVideoLinkAction, setRoomIDAction } from "../actions/actions";
 
-const Room = (props) => {
+function Room(props) {
   const { state, dispatch } = useContext(ChatContext);
 
   const [messages, setMessages] = useState([]);
@@ -280,6 +281,11 @@ const Room = (props) => {
 
   function initLoadVideo() {
     if (!videoLink) return;
+
+    const isYoutubeVideoLink = checkIfYoutubeVideoLink(videoLink);
+    if (!isYoutubeVideoLink)
+      return alert("Please eneter a valid Youtube video link.");
+
     dispatch(setVideoLinkAction(videoLink));
     socketRef.current.emit("load video", videoLink);
   }
@@ -380,6 +386,6 @@ const Room = (props) => {
       )}
     </div>
   );
-};
+}
 
 export default Room;

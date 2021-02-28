@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "react-avatar";
 
-const UserList = ({ room }) => {
+function UserList({ room }) {
   return (
     <div className="user-list-container">
       <h2>Connected users:</h2>
@@ -19,6 +19,6 @@ const UserList = ({ room }) => {
       </div>
     </div>
   );
-};
+}
 
 export default UserList;

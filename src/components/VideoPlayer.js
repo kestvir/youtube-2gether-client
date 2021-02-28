@@ -1,6 +1,6 @@
 import React from "react";
 
-const VideoPlayer = ({
+function VideoPlayer({
   initLoadVideo,
   videoLink,
   setVideoLink,
@@ -8,7 +8,7 @@ const VideoPlayer = ({
   hostUsername,
   forwardedRefLoadContainer,
   forwardedRefHostControlBtn,
-}) => {
+}) {
   return (
     <div className="video-player-container">
       <h1 className="host-name">Current host: {hostUsername}</h1>
@@ -33,6 +33,6 @@ const VideoPlayer = ({
       </div>
     </div>
   );
-};
+}
 
 export default VideoPlayer;

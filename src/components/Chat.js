@@ -2,7 +2,7 @@ import React from "react";
 import UserList from "./UserList";
 import Avatar from "react-avatar";
 
-const Chat = ({
+function Chat({
   room,
   messages,
   message,
@@ -10,7 +10,7 @@ const Chat = ({
   handleMessageChange,
   forwardedRefSendMsgBtn,
   yourUserObj,
-}) => {
+}) {
   return (
     <div className="chat-container">
       <UserList room={room} />
@@ -63,6 +63,6 @@ const Chat = ({
       </form>
     </div>
   );
-};
+}
 
 export default Chat;

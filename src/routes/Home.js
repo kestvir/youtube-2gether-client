@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+function Home() {
   return (
     <div className="home-container">
       <div className="create-side">
@@ -17,6 +17,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Home;
