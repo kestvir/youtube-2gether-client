@@ -8,6 +8,7 @@ import Loader from "react-loader-spinner";
 
 import { checkIfYoutubeVideoLink } from "../shared/functions";
 import { setVideoLinkAction, setRoomIDAction } from "../actions/actions";
+import { BACKEND_ENDPOINT } from "../shared/constants";
 
 function Room(props) {
   const { state, dispatch } = useContext(ChatContext);
@@ -34,9 +35,6 @@ function Room(props) {
   const sendMsgBtn = useRef(null);
   const videoID = useRef("");
 
-  const ENDPOINT = "https://youtube-2gether-backend.herokuapp.com/";
-  //   const ENDPOINT = "http://localhost:8000";
-
   useEffect(() => {
     setLoading(true);
 
@@ -47,7 +45,7 @@ function Room(props) {
       return props.history.push("/join-room/");
     }
 
-    socketRef.current = io.connect(ENDPOINT);
+    socketRef.current = io.connect(BACKEND_ENDPOINT);
 
     socketRef.current.emit(
       "join room",

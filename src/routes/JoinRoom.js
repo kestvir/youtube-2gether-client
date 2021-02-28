@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ChatContext } from "../context/ChatContext";
 import { setUsernameAction } from "../actions/actions";
+import { BACKEND_ENDPOINT } from "../shared/constants";
 
 function JoinRoom(props) {
   const { state, dispatch } = useContext(ChatContext);
@@ -15,7 +16,7 @@ function JoinRoom(props) {
   }, []);
 
   function checkIfRoomExists(roomID) {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}join-room`, {
+    fetch(`${BACKEND_ENDPOINT}join-room`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
