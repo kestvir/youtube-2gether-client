@@ -1,2 +1,1 @@
-export const BACKEND_ENDPOINT =
-  "https://youtube-2gether-backend.herokuapp.com/";
+export const BACKEND_ENDPOINT = "http://localhost:8000/";

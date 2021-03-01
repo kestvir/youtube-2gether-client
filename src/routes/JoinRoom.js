@@ -10,37 +10,34 @@ function JoinRoom(props) {
   const [roomID, setRoomID] = useState("");
 
   useEffect(() => {
-    if (state.roomID) {
-      setRoomID(state.roomID);
-    }
-  }, []);
+    setRoomID(state.roomID);
+  }, [state.roomID]);
 
-  function checkIfRoomExists(roomID) {
-    fetch(`${BACKEND_ENDPOINT}join-room`, {
+  async function checkIfRoomExists() {
+    const response = await fetch(`${BACKEND_ENDPOINT}join-room`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ roomID }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        return data.isRoom;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    });
+    if (!response.ok) {
+      const message = `An error has occured: ${response.status}`;
+      throw new Error(message);
+    }
+    const data = await response.json();
+    return data;
   }
 
-  function joinRoom(e) {
+  async function joinRoom(e) {
     e.preventDefault();
 
     if (!roomID.trim() || !username.trim()) {
       return alert("Fill in the input fields!");
     }
-    const roomExists = checkIfRoomExists(roomID);
+    const data = await checkIfRoomExists();
 
-    if (!roomExists) return alert("Room does not exist!");
+    if (!data.isRoom) return alert("Room does not exist!");
 
     dispatch(setUsernameAction(username));
 
