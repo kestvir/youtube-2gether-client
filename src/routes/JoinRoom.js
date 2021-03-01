@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ChatContext } from "../context/ChatContext";
 import { setUsernameAction } from "../actions/actions";
-import { BACKEND_ENDPOINT } from "../shared/constants";
+import { getRoomData } from "../shared/functions";
 
 function JoinRoom(props) {
   const { state, dispatch } = useContext(ChatContext);
@@ -13,29 +13,13 @@ function JoinRoom(props) {
     setRoomID(state.roomID);
   }, [state.roomID]);
 
-  async function checkIfRoomExists() {
-    const response = await fetch(`${BACKEND_ENDPOINT}join-room`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ roomID }),
-    });
-    if (!response.ok) {
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
-    }
-    const data = await response.json();
-    return data;
-  }
-
   async function joinRoom(e) {
     e.preventDefault();
 
     if (!roomID.trim() || !username.trim()) {
       return alert("Fill in the input fields!");
     }
-    const data = await checkIfRoomExists();
+    const data = await getRoomData(roomID);
 
     if (!data.isRoom) return alert("Room does not exist!");
 

@@ -9,6 +9,7 @@ import Loader from "react-loader-spinner";
 import { checkIfYoutubeVideoLink } from "../shared/functions";
 import { setVideoLinkAction, setRoomIDAction } from "../actions/actions";
 import { BACKEND_ENDPOINT } from "../shared/constants";
+import { getRoomData } from "../shared/functions";
 
 function Room(props) {
   const { state, dispatch } = useContext(ChatContext);
@@ -35,15 +36,36 @@ function Room(props) {
   const sendMsgBtn = useRef(null);
   const videoID = useRef("");
 
+  const roomID = props.match.params.roomID;
+
+  function resetAfterLeaving() {
+    //youtube widget
+    const firstScriptTag = document.getElementsByTagName("script")[0];
+    //youtube iframe
+    const secondScriptTag = document.getElementsByTagName("script")[1];
+    if (firstScriptTag) firstScriptTag.remove();
+    if (secondScriptTag) secondScriptTag.remove();
+    if (socketRef.current) {
+      socketRef.current.close();
+      socketRef.current.off();
+    }
+  }
+
   useEffect(() => {
     setLoading(true);
 
-    const roomID = props.match.params.roomID;
+    const checkIfValidConnection = async function () {
+      const data = await getRoomData(roomID);
+      if (!state.username && data.roomLength) {
+        dispatch(setRoomIDAction(roomID));
+        props.history.push("/join-room/");
+      } else if (!state.username && !data.roomLength) {
+        dispatch(setRoomIDAction(""));
+        props.history.push("/");
+      }
+    };
 
-    if (!state.username) {
-      dispatch(setRoomIDAction(roomID));
-      return props.history.push("/join-room/");
-    }
+    checkIfValidConnection();
 
     socketRef.current = io.connect(BACKEND_ENDPOINT);
 
@@ -124,14 +146,7 @@ function Room(props) {
     });
 
     return () => {
-      //youtube widget
-      const firstScriptTag = document.getElementsByTagName("script")[0];
-      //youtube iframe
-      const secondScriptTag = document.getElementsByTagName("script")[1];
-      if (firstScriptTag) firstScriptTag.remove();
-      if (secondScriptTag) secondScriptTag.remove();
-      dispatch(setRoomIDAction(""));
-      socketRef.current.close();
+      resetAfterLeaving();
     };
   }, []);
 
